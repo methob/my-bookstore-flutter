@@ -26,7 +26,7 @@ abstract class $BookStoreRouter extends _i3.RootStackRouter {
     SignUpRoute.name: (routeData) {
       return _i3.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.SignUpScreen(),
+        child: _i2.SignUpScreen(),
       );
     },
   };

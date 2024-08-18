@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bookstore_thais/ui/screen/login/login_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +48,7 @@ extension InjectedGetItExtension on GetIt {
     final injectedHelper = GetItHelper(this, environment, environmentFilter);
     final dioModule = RegisterModule();
     injectedHelper.singleton<Dio>(() => dioModule.dio);
+    injectedHelper.singleton<LoginController>(() => LoginController());
     return this;
   }
 }
