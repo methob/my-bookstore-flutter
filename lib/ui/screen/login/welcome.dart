@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:bookstore_thais/theme/images.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
                           children: [
                             ElevatedButton(
                               onPressed: () {
-                                context.router.push(LoginRoute());
+                                context.router.push(const LoginRoute());
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.btnColors,
@@ -57,7 +56,7 @@ class WelcomeScreen extends StatelessWidget {
                                 style: TextStyle(color: AppColors.primary),
                               ),
                             ),
-                            SizedBox(height: 14),
+                            const SizedBox(height: 14),
                             InkWell(
                               onTap: () {
                                 context.router.push(SignUpRoute());
@@ -71,26 +70,6 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                       ),
                     )
-                    // Center(
-                    //   child: Column(
-                    //     mainAxisSize: MainAxisSize.min,
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: [
-                    //       Container(
-                    //           margin: const EdgeInsets.only(top: 150.4),
-                    //           child: BookStoreAssets.appLogo),
-                    //       const SizedBox(height: 16.0),
-                    //       const Padding(
-                    //         padding: EdgeInsets.symmetric(horizontal: 30.0),
-                    //         child: Text(
-                    //           "Read more and stress less with our online book shopping app. Shop from anywhere you are and discover titles that you love. Happy reading!",
-                    //           style: TextStyle(
-                    //               color: AppColors.simpleBlack, fontSize: 14.0),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // )
                   ],
                 ),
               ),
