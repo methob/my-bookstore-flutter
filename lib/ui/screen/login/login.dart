@@ -96,7 +96,7 @@ class LoginScreen extends StatelessWidget {
                               alignment: Alignment.bottomCenter,
                               child: InkWell(
                                   onTap: () {
-                                    context.router.push(const SignUpRoute());
+                                    context.router.push(SignUpRoute());
                                   },
                                   child: RichText(
                                       text: const TextSpan(children: [

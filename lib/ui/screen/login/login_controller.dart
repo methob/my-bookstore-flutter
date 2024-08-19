@@ -1,5 +1,4 @@
 
-
 import 'package:injectable/injectable.dart';
 
 @Singleton()
@@ -9,7 +8,7 @@ class LoginController {
     if (password?.isEmpty == true) {
       return "Please enter your password";
     } else {
-      null;
+      return null;
     }
   }
 }
