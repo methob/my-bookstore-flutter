@@ -63,7 +63,7 @@ class WelcomeScreen extends StatelessWidget {
                               },
                               child: const Text(
                                 'Register',
-                                style: TextStyle(color: AppColors.btnColors, fontWeight: FontWeight.bold),
+                                style: TextStyle(color: AppColors.btnColors, fontWeight: FontWeight.w600),
                               ),
                             )
                           ],
