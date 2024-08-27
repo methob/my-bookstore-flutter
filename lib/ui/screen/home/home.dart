@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:bookstore_thais/model/banner_home.dart';
 import 'package:bookstore_thais/theme/colors.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/item_banner_home.dart';
+import 'package:bookstore_thais/ui/screen/home/widget/icon_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../model/banner_home.dart';
@@ -40,6 +41,9 @@ class homeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final ValueNotifier<int> currentIndexNotifier = ValueNotifier<int>(0);
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -61,29 +65,37 @@ class homeScreen extends StatelessWidget {
           ),
           titleSpacing: 0,
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          selectedItemColor: Colors.black,
-          type: BottomNavigationBarType.fixed,
-          unselectedItemColor: Colors.black,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.house),
-              label: "Home"
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.category),
-                label: "Categories"
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart),
-                label: "Cart"
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_box),
-                label: "Account"
-            )
-          ],
+        bottomNavigationBar: ValueListenableBuilder<int>(
+          valueListenable: currentIndexNotifier,
+          builder: (context, currentIndex, child) {
+            return BottomNavigationBar(
+              currentIndex: currentIndex,
+              selectedItemColor: Colors.black,
+              type: BottomNavigationBarType.fixed,
+              unselectedItemColor: Colors.black,
+              onTap: (index) {
+                currentIndexNotifier.value = index;
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: IconNavigationBarWithCustomSelector(icon: Icons.house, index: 0, currentIndex: currentIndex),
+                  label: "Home"
+                ),
+                BottomNavigationBarItem(
+                    icon: IconNavigationBarWithCustomSelector(icon: Icons.category, index: 1, currentIndex: currentIndex),
+                    label: "Categories"
+                ),
+                BottomNavigationBarItem(
+                    icon: IconNavigationBarWithCustomSelector(icon: Icons.shopping_cart, index: 2, currentIndex: currentIndex),
+                    label: "Cart"
+                ),
+                BottomNavigationBarItem(
+                    icon: IconNavigationBarWithCustomSelector(icon: Icons.account_box, index: 3, currentIndex: currentIndex),
+                    label: "Account"
+                )
+              ],
+            );
+          }
         ),
         body: SingleChildScrollView(
             child: ConstrainedBox(
