@@ -43,7 +43,7 @@ abstract class $BookStoreRouter extends _i5.RootStackRouter {
     HomeRoute.name: (routeData) {
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.homeScreen(),
+        child: _i4.HomeScreen(),
       );
     },
   };
@@ -107,7 +107,7 @@ class WelcomeRoute extends _i5.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.homeScreen]
+/// [_i4.HomeScreen]
 class HomeRoute extends _i5.PageRouteInfo<void> {
   const HomeRoute({List<_i5.PageRouteInfo>? children})
       : super(
