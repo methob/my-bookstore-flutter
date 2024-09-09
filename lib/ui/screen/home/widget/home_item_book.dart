@@ -1,16 +1,13 @@
 
+import 'package:bookstore_thais/model/vo/home_item_vo.dart';
 import 'package:bookstore_thais/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class HomeItemBook extends StatelessWidget {
 
-  final String? image;
-  final String? category;
-  final String? title;
-  final String? author;
-  final String? value;
+  final HomeBookItemVO? item;
 
-  const HomeItemBook({super.key, this.image, this.category, this.title, this.author, this.value});
+  const HomeItemBook({super.key, this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +20,7 @@ class HomeItemBook extends StatelessWidget {
             Image.network(
               height: 140,
               width: MediaQuery.of(context).size.width,
-             image ?? "",
+             item?.image ?? "",
               fit: BoxFit.cover,
             ),
             Container(
@@ -32,7 +29,7 @@ class HomeItemBook extends StatelessWidget {
                 children: [
                   const SizedBox(height: 12),
                   Text(
-                      category ?? "",
+                      item?.category ?? "",
                       style: const TextStyle(
                         color: AppColors.textFieldColors,
                         fontSize: 10.85,

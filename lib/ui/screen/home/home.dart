@@ -1,6 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:bookstore_thais/model/banner_home.dart';
+import 'package:bookstore_thais/model/vo/home_item_vo.dart';
 import 'package:bookstore_thais/theme/colors.dart';
+import 'package:bookstore_thais/ui/screen/home/widget/home_item_book.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/home_section_book_header.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/item_banner_home.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/icon_navigation_bar.dart';
@@ -48,7 +50,7 @@ class HomeScreen extends StatelessWidget {
       items: List.generate(5, (itemIndex) {
         // Criando uma lista de HomeBook com 5 itens para cada seção
         return HomeBook(
-          image: 'https://example.com/image${itemIndex + 1}.png',
+          image: 'https://t.ctcdn.com.br/Fvptbj1dqz44LSHULZhyU9K-KIQ=/1024x576/smart/i525540.jpeg',
           // URL fictícia da imagem
           title: 'Título do Livro ${itemIndex + 1}',
           // Título fictício do livro
@@ -171,25 +173,37 @@ class HomeScreen extends StatelessWidget {
                           ),
                           Builder(
                             builder: (context) {
-                              final List<String?> combinedList = [];
-                              homeBookSections.forEach((items) {
-                                combinedList.add(items.title);
-                                combinedList.addAll(items.items!.map((test) => test.title));
-                              });
+                              final List<HomeItemVO> combinedList = [];
+                              for (var items in homeBookSections) {
+                                combinedList.add(HomeHeaderItemVO(title: items.title));
+                                combinedList.addAll(items.items!.map((item) => HomeBookItemVO(
+                                  image: item.image,
+                                  title: item.title,
+                                  category: item.type,
+                                  author: item.author,
+                                  value: item.value
+                                )));
+                              }
+                              print(combinedList);
                               return ListView.builder(
                                   shrinkWrap: true, // TODO bad performance issue, change to slivers, in this code in going to use this, but change in the future
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemCount: combinedList.length,
                                   itemBuilder: (context, index) {
-                                        var section = combinedList[index];
-                                        return ListTile(
-                                            contentPadding: EdgeInsets.zero,
-                                            title: HomeSectionBookHeader(
-                                                title: section ?? "",
-                                                showFilter: true,
-                                            ),
-                                            subtitle: Text("Teste"),
-                                        );
+                                        var isHeader = combinedList[index] is HomeHeaderItemVO;
+                                        print(isHeader);
+                                        if (isHeader) {
+                                          HomeHeaderItemVO headerItem = combinedList[index] as HomeHeaderItemVO;
+                                          return HomeSectionBookHeader(
+                                            title: headerItem.title ?? "",
+                                            showFilter: true,
+                                          );
+                                        } else {
+                                          HomeBookItemVO itemSection = combinedList[index] as HomeBookItemVO;
+                                          return HomeItemBook(
+                                              item: itemSection
+                                          );
+                                        }
                                     }
                                   );
                             }
