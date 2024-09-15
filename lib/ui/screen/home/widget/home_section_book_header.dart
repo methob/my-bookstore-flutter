@@ -19,66 +19,69 @@ class HomeSectionBookHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Text(
-                title ?? "",
-                style: const TextStyle(
-                  color: AppColors.btnColors,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20
-                ),
-            ),
-            Visibility(
-              visible: showSeeMore ?? true,
-              child: Expanded(
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: InkWell(
-                    onTap: () {
+    return Container(
+      margin: const EdgeInsets.only(top: 50),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Text(
+                  title ?? "",
+                  style: const TextStyle(
+                    color: AppColors.btnColors,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20
+                  ),
+              ),
+              Visibility(
+                visible: showSeeMore ?? true,
+                child: Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: InkWell(
+                      onTap: () {
 
-                    },
-                    child: const Text(
-                      "see more",
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.btnColors
+                      },
+                      child: const Text(
+                        "see more",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.btnColors
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            )
-          ],
-        ),
-        Visibility(
-            visible: showFilter ?? false,
-            child: const SizedBox(height: 8)
-        ),
-        Visibility(
-          visible: showFilter ?? false,
-          child: Row(
-            children: [
-              HomeFilterButton(
-                title: "This Week",
-                isSelected: selectedItem == 0,
-              ),
-              const SizedBox(width: 16),
-              HomeFilterButton(
-                title: "This Month",
-                isSelected: selectedItem == 1,
-              ),
-              const SizedBox(width: 16),
-              HomeFilterButton(
-                title: "This Year",
-                isSelected: selectedItem == 2,
-              ),
+              )
             ],
           ),
-        )
-      ],
+          Visibility(
+              visible: showFilter ?? false,
+              child: const SizedBox(height: 8)
+          ),
+          Visibility(
+            visible: showFilter ?? false,
+            child: Row(
+              children: [
+                HomeFilterButton(
+                  title: "This Week",
+                  isSelected: selectedItem == 0,
+                ),
+                const SizedBox(width: 16),
+                HomeFilterButton(
+                  title: "This Month",
+                  isSelected: selectedItem == 1,
+                ),
+                const SizedBox(width: 16),
+                HomeFilterButton(
+                  title: "This Year",
+                  isSelected: selectedItem == 2,
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

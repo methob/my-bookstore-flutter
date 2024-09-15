@@ -50,7 +50,8 @@ class HomeScreen extends StatelessWidget {
       items: List.generate(5, (itemIndex) {
         // Criando uma lista de HomeBook com 5 itens para cada seção
         return HomeBook(
-          image: 'https://t.ctcdn.com.br/Fvptbj1dqz44LSHULZhyU9K-KIQ=/1024x576/smart/i525540.jpeg',
+          image:
+              'https://t.ctcdn.com.br/Fvptbj1dqz44LSHULZhyU9K-KIQ=/1024x576/smart/i525540.jpeg',
           // URL fictícia da imagem
           title: 'Título do Livro ${itemIndex + 1}',
           // Título fictício do livro
@@ -62,7 +63,8 @@ class HomeScreen extends StatelessWidget {
           // Valor fictício do livro
           releaseDate: '2024-0${itemIndex + 1}-01',
           // Data fictícia de lançamento
-          sellingTOP: SellingTOP.values[itemIndex % 3], // Alternando entre semana, mês e ano
+          sellingTOP: SellingTOP
+              .values[itemIndex % 3], // Alternando entre semana, mês e ano
         );
       }),
     );
@@ -171,43 +173,34 @@ class HomeScreen extends StatelessWidget {
                                   dotHeight: 8, dotWidth: 8),
                             ),
                           ),
-                          Builder(
-                            builder: (context) {
-                              final List<HomeItemVO> combinedList = [];
-                              for (var items in homeBookSections) {
-                                combinedList.add(HomeHeaderItemVO(title: items.title));
-                                combinedList.addAll(items.items!.map((item) => HomeBookItemVO(
-                                  image: item.image,
-                                  title: item.title,
-                                  category: item.type,
-                                  author: item.author,
-                                  value: item.value
-                                )));
-                              }
-                              print(combinedList);
-                              return ListView.builder(
-                                  shrinkWrap: true, // TODO bad performance issue, change to slivers, in this code in going to use this, but change in the future
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: combinedList.length,
-                                  itemBuilder: (context, index) {
-                                        var isHeader = combinedList[index] is HomeHeaderItemVO;
-                                        print(isHeader);
-                                        if (isHeader) {
-                                          HomeHeaderItemVO headerItem = combinedList[index] as HomeHeaderItemVO;
-                                          return HomeSectionBookHeader(
-                                            title: headerItem.title ?? "",
-                                            showFilter: true,
-                                          );
-                                        } else {
-                                          HomeBookItemVO itemSection = combinedList[index] as HomeBookItemVO;
+                          ListView.builder(
+                              shrinkWrap: true, // TODO bad performance issue, change to slivers, in this code in going to use this, but change in the future
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: homeBookSections.length,
+                              itemBuilder: (context, index) {
+                                var session = homeBookSections[index];
+                                return Column(children: [
+                                  HomeSectionBookHeader(
+                                    title: session.title ?? "",
+                                    showFilter: index == 0,
+                                  ),
+                                  const SizedBox(height: 30),
+                                  SizedBox(
+                                    height: 280,
+                                    child: ListView.builder(
+                                        itemCount: session.items?.length,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, itemsIndex) {
                                           return HomeItemBook(
-                                              item: itemSection
-                                          );
-                                        }
-                                    }
-                                  );
-                            }
-                          )
+                                              item: session.items?[itemsIndex]);
+                                        }),
+                                  )
+                                ]);
+                                return HomeSectionBookHeader(
+                                  title: session.title ?? "",
+                                  showFilter: true,
+                                );
+                              })
                         ],
                       ),
                     ),
