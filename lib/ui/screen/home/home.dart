@@ -1,14 +1,15 @@
 import 'package:auto_route/annotations.dart';
 import 'package:bookstore_thais/model/banner_home.dart';
-import 'package:bookstore_thais/model/vo/home_item_vo.dart';
 import 'package:bookstore_thais/theme/colors.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/home_item_book.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/home_section_book_header.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/item_banner_home.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/icon_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../bloc/home/home_top_book_filter_bloc.dart';
 import '../../../model/home_book_item.dart';
 import '../../../model/home_book_section.dart';
 
@@ -173,34 +174,50 @@ class HomeScreen extends StatelessWidget {
                                   dotHeight: 8, dotWidth: 8),
                             ),
                           ),
-                          ListView.builder(
-                              shrinkWrap: true, // TODO bad performance issue, change to slivers, in this code in going to use this, but change in the future
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: homeBookSections.length,
-                              itemBuilder: (context, index) {
-                                var session = homeBookSections[index];
-                                return Column(children: [
-                                  HomeSectionBookHeader(
-                                    title: session.title ?? "",
-                                    showFilter: index == 0,
-                                  ),
-                                  const SizedBox(height: 30),
-                                  SizedBox(
-                                    height: 280,
-                                    child: ListView.builder(
-                                        itemCount: session.items?.length,
-                                        scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, itemsIndex) {
-                                          return HomeItemBook(
-                                              item: session.items?[itemsIndex]);
-                                        }),
-                                  )
-                                ]);
-                                return HomeSectionBookHeader(
-                                  title: session.title ?? "",
-                                  showFilter: true,
-                                );
-                              })
+                          BlocProvider(
+                            create: (_) => HomeTopBookFilterBloc(),
+                            child: ListView.builder(
+                                shrinkWrap: true, // TODO bad performance issue, change to slivers, in this code in going to use this, but change in the future
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: homeBookSections.length,
+                                itemBuilder: (context, index) {
+                                  var session = homeBookSections[index];
+                                  return BlocBuilder<HomeTopBookFilterBloc, HomeBookState>(
+                                      builder: (context, state) {
+                                        var filteredBook  = session.items?.where((item) {
+                                          if (index == 0) {
+                                            if ((state == HomeBookState.week && item.sellingTOP == SellingTOP.week) ||
+                                                (state == HomeBookState.month && item.sellingTOP == SellingTOP.month) ||
+                                                (state == HomeBookState.year && item.sellingTOP == SellingTOP.year) ) {
+                                              return true;
+                                            } else {
+                                              return false;
+                                            }
+                                          }
+                                          return true;
+                                        }).toList();
+                                      return Column(children: [
+                                        HomeSectionBookHeader(
+                                          title: session.title ?? "",
+                                          showFilter: index == 0,
+                                          selectedItem: state,
+                                        ),
+                                        const SizedBox(height: 30),
+                                         SizedBox(
+                                              height: 280,
+                                              child: ListView.builder(
+                                                  itemCount: filteredBook?.length,
+                                                  scrollDirection: Axis.horizontal,
+                                                  itemBuilder: (context, itemsIndex) {
+                                                    return HomeItemBook(
+                                                        item: filteredBook?[itemsIndex]);
+                                                  }),
+                                        )
+                                      ]);
+                                    }
+                                  );
+                                }),
+                          )
                         ],
                       ),
                     ),

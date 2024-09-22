@@ -1,20 +1,22 @@
 
+import 'package:bookstore_thais/bloc/home/home_top_book_filter_bloc.dart';
 import 'package:bookstore_thais/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeSectionBookHeader extends StatelessWidget {
 
   final String? title;
   final bool? showSeeMore;
   final bool? showFilter;
+  final HomeBookState selectedItem;
 
-  int selectedItem = 0;
-
-  HomeSectionBookHeader({
+  const HomeSectionBookHeader({
     super.key,
     this.title,
     this.showSeeMore,
-    this.showFilter
+    this.showFilter,
+    required this.selectedItem
   });
 
   @override
@@ -65,17 +67,20 @@ class HomeSectionBookHeader extends StatelessWidget {
               children: [
                 HomeFilterButton(
                   title: "This Week",
-                  isSelected: selectedItem == 0,
+                  isSelected: selectedItem == HomeBookState.week,
+                  event: HomeBookEvent.filterByWeek
                 ),
                 const SizedBox(width: 16),
                 HomeFilterButton(
                   title: "This Month",
-                  isSelected: selectedItem == 1,
+                  isSelected: selectedItem == HomeBookState.month,
+                  event: HomeBookEvent.filterByMonth
                 ),
                 const SizedBox(width: 16),
                 HomeFilterButton(
                   title: "This Year",
-                  isSelected: selectedItem == 2,
+                  isSelected: selectedItem == HomeBookState.year,
+                  event: HomeBookEvent.filterByYear
                 ),
               ],
             ),
@@ -90,14 +95,15 @@ class HomeFilterButton extends StatelessWidget {
 
   final bool isSelected;
   final String title;
+  final HomeBookEvent event;
 
-  const HomeFilterButton({super.key, required this.isSelected, required this.title});
+  const HomeFilterButton({super.key, required this.isSelected, required this.title, required this.event});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: () => {
-
+            context.read<HomeTopBookFilterBloc>().add(event)
         },
         style: ElevatedButton.styleFrom(
             backgroundColor: isSelected ? AppColors.fullBlack : Colors.transparent.withOpacity(0),

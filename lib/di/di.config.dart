@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bookstore_thais/ui/screen/login/login_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
