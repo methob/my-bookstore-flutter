@@ -61,7 +61,7 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(height: defaultSpacing),
                         ElevatedButton(
                           onPressed: () {
-                            context.router.push(const HomeRoute());
+                            context.router.push(HomeRoute());
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.btnColors,

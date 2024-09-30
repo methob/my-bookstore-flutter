@@ -10,7 +10,8 @@ class BookStoreRouter extends $BookStoreRouter {
     AutoRoute(path : "/welcome", page: WelcomeRoute.page, initial: true),
     AutoRoute(path : "/login", page: LoginRoute.page),
     AutoRoute(path : "/signup", page: SignUpRoute.page),
-    AutoRoute(path : "/home", page: HomeRoute.page)
+    AutoRoute(path : "/home", page: HomeRoute.page),
+    AutoRoute(path : "/categories", page: CategoriesRoute.page),
   ];
 
   @override
