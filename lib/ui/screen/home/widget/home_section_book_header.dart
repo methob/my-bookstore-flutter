@@ -1,5 +1,7 @@
 
+import 'package:auto_route/auto_route.dart';
 import 'package:bookstore_thais/bloc/home/home_top_book_filter_bloc.dart';
+import 'package:bookstore_thais/navigation/router.config.gr.dart';
 import 'package:bookstore_thais/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,9 +42,9 @@ class HomeSectionBookHeader extends StatelessWidget {
                 child: Expanded(
                   child: Align(
                     alignment: Alignment.bottomRight,
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: () {
-
+                        context.router.push(const DetailBookRoute());
                       },
                       child: const Text(
                         "see more",

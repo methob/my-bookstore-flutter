@@ -5,6 +5,7 @@ import 'package:bookstore_thais/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../model/home_book_item.dart';
+import 'package:bookstore_thais/navigation/router.config.gr.dart';
 
 class HomeItemBook extends StatelessWidget {
 
@@ -14,9 +15,13 @@ class HomeItemBook extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => {
-        context.router.push(const DetailRoute())
+    return GestureDetector(
+      onTap: () {
+        print("Navegando detalhe");
+        // context.read<HomeBottomSelectorBloc>().add(HomeBottomSelectorEvent(homeScreen: HomeScreenEnum.detail));
+        // AutoTabsRouter.of(context).navigate(DetailRoute());
+        // AutoRouter.of(context).push(DetailBookRoute());
+        context.router.push(DetailBookRoute());
       },
       child: Container(
         margin: const EdgeInsets.only(right: 16),

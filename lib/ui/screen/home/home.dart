@@ -1,73 +1,69 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:bookstore_thais/bloc/home/home_bottom_selector_bloc.dart';
+import 'package:bookstore_thais/navigation/router.config.gr.dart';
+import 'package:bookstore_thais/ui/screen/categories/detail.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/icon_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import '../categories/categories.dart';
 import 'home_content.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
-
   HomeScreen({super.key});
-
-  final List<Widget> _screens = [
-    HomeContent(),         // Tela da Home
-    CategoriesScreen(),     // Tela de Categorias
-    HomeContent(),           // Tela do Carrinho
-    HomeContent()         // Tela da Conta
-  ];
 
   @override
   Widget build(BuildContext context) {
-    final ValueNotifier<int> currentIndexNotifier = ValueNotifier<int>(0);
-
-    return MaterialApp(
-      home: Scaffold(
-        bottomNavigationBar: ValueListenableBuilder<int>(
-            valueListenable: currentIndexNotifier,
-            builder: (context, currentIndex, child) {
-              return BottomNavigationBar(
-                currentIndex: currentIndex,
-                selectedItemColor: Colors.black,
-                type: BottomNavigationBarType.fixed,
-                unselectedItemColor: Colors.black,
-                onTap: (index) {
-                  currentIndexNotifier.value = index;
-                },
-                items: [
-                  BottomNavigationBarItem(
-                      icon: IconNavigationBarWithCustomSelector(
-                          icon: Icons.house,
-                          index: 0,
-                          currentIndex: currentIndex),
-                      label: "Home"),
-                  BottomNavigationBarItem(
-                      icon: IconNavigationBarWithCustomSelector(
-                          icon: Icons.category,
-                          index: 1,
-                          currentIndex: currentIndex),
-                      label: "Categories"),
-                  BottomNavigationBarItem(
-                      icon: IconNavigationBarWithCustomSelector(
-                          icon: Icons.shopping_cart,
-                          index: 2,
-                          currentIndex: currentIndex),
-                      label: "Cart"),
-                  BottomNavigationBarItem(
-                      icon: IconNavigationBarWithCustomSelector(
-                          icon: Icons.account_box,
-                          index: 3,
-                          currentIndex: currentIndex),
-                      label: "Account")
-                ],
-              );
-            }),
-        body: ValueListenableBuilder<int>(
-          valueListenable: currentIndexNotifier,
-          builder: (context, currentIndex, child) {
-            return _screens[currentIndex];
-          }
-      ),
-    ));
+    return AutoTabsRouter(
+        routes: [
+          HomeContentRouter(),
+          CategoriesRoute(),
+          CategoriesRoute(),
+          CategoriesRoute()
+        ],
+        builder: (context, child) {
+          final tabsRouter = AutoTabsRouter.of(context);
+          return Scaffold(
+            body: child,
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: tabsRouter.activeIndex,
+              selectedItemColor: Colors.black,
+              type: BottomNavigationBarType.fixed,
+              unselectedItemColor: Colors.black,
+              onTap: (index) {
+                tabsRouter.setActiveIndex(index);
+              },
+              items: [
+                BottomNavigationBarItem(
+                    icon: IconNavigationBarWithCustomSelector(
+                        icon: Icons.house,
+                        index: 0,
+                        currentIndex: tabsRouter.activeIndex),
+                    label: "Home"),
+                BottomNavigationBarItem(
+                    icon: IconNavigationBarWithCustomSelector(
+                        icon: Icons.category,
+                        index: 1,
+                        currentIndex: tabsRouter.activeIndex),
+                    label: "Categories"),
+                BottomNavigationBarItem(
+                    icon: IconNavigationBarWithCustomSelector(
+                        icon: Icons.shopping_cart,
+                        index: 2,
+                        currentIndex: tabsRouter.activeIndex),
+                    label: "Cart"),
+                BottomNavigationBarItem(
+                    icon: IconNavigationBarWithCustomSelector(
+                        icon: Icons.account_box,
+                        index: 3,
+                        currentIndex: tabsRouter.activeIndex),
+                    label: "Account")
+              ],
+            ),
+          );
+        });
   }
 }

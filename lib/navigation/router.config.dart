@@ -1,22 +1,26 @@
-
 import 'package:auto_route/auto_route.dart';
 import 'package:bookstore_thais/navigation/router.config.gr.dart';
 
 @AutoRouterConfig()
 class BookStoreRouter extends $BookStoreRouter {
-
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(path : "/welcome", page: WelcomeRoute.page, initial: true),
-    AutoRoute(path : "/login", page: LoginRoute.page),
-    AutoRoute(path : "/signup", page: SignUpRoute.page),
-    AutoRoute(path : "/home", page: HomeRoute.page),
-    AutoRoute(path : "/categories", page: CategoriesRoute.page),
-    AutoRoute(path : "/detail", page: DetailRoute.page),
-  ];
+        AutoRoute(page: WelcomeRoute.page, initial: true),
+        AutoRoute(page: LoginRoute.page),
+        AutoRoute(page: SignUpRoute.page),
+        AutoRoute(
+          page: HomeRoute.page,
+          children: [
+            AutoRoute(page: HomeContentRouter.page, children: [
+              AutoRoute(page: DetailBookRoute.page),
+            ]),
+            AutoRoute(page: CategoriesRoute.page),
+          ],
+        ),
+      ];
 
   @override
   RouteType get defaultRouteType => const RouteType.custom(
-    transitionsBuilder: TransitionsBuilders.fadeIn,
-  );
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      );
 }

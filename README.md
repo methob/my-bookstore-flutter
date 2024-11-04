@@ -4,6 +4,8 @@ A new Flutter project.
 
 ## Getting Started
 
+this project is based on this figma: https://www.figma.com/design/NXSRj3CgzUZ0lPqLjI9BZP/Bookstore-App-(Community)?node-id=0-1&t=kS8fcFzdWvXep9pb-0
+
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:

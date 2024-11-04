@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/home_item_book.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/home_section_book_header.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/item_banner_home.dart';
@@ -11,6 +12,7 @@ import '../../../model/home_book_item.dart';
 import '../../../model/home_book_section.dart';
 import '../../../theme/colors.dart';
 
+@RoutePage(name: "HomeContentRouter")
 class HomeContent extends StatelessWidget {
   HomeContent({super.key});
 
@@ -69,9 +71,8 @@ class HomeContent extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+  Widget build(BuildContext mainContext) {
+    return Scaffold(
       appBar: AppBar(
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
         title: const Padding(
@@ -171,8 +172,7 @@ class HomeContent extends StatelessWidget {
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, itemsIndex) {
                                             return HomeItemBook(
-                                                item:
-                                                    filteredBook?[itemsIndex]);
+                                                item: filteredBook?[itemsIndex]);
                                           }),
                                     )
                                   ]);
@@ -184,6 +184,6 @@ class HomeContent extends StatelessWidget {
                   ),
                 ],
               ))),
-    ));
+    );
   }
 }

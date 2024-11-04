@@ -1,9 +1,10 @@
-import 'dart:ui';
 
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../../model/category.dart';
+import '../../../navigation/router.config.gr.dart';
 import '../../../theme/colors.dart';
 
 @RoutePage()
@@ -89,42 +90,47 @@ class CategoriesScreen extends StatelessWidget {
                 itemCount: categories.length,
                 itemBuilder: (BuildContext context, int index) {
                   final category = categories[index];
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(5.0),
-                    child: Stack(fit: StackFit.expand, children: [
-                      Image.network(
-                        category.imageUrl,
-                        fit: BoxFit.cover,
-                      ),
-                      Container(
-                          decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          // Gradiente começa do topo
-                          end: Alignment.bottomCenter,
-                          // E vai até o final da imagem
-                          colors: [
-                            const Color(0xFF00008B).withOpacity(0.9),
-                            // Azul escuro com preto
-                            const Color(0xFF000000).withOpacity(0.6),
-                            // Preto mais claro
-                            const Color(0xFFFFFFFF).withOpacity(0.1),
-                            // Vai clareando
-                          ],
-                          stops: const [0.0, 0.5, 1.0], // Pontos de transição do gradiente
+                  return InkWell(
+                    onTap: () => {
+                      context.router.push(const DetailBookRoute())
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: Stack(fit: StackFit.expand, children: [
+                        Image.network(
+                          category.imageUrl,
+                          fit: BoxFit.cover,
                         ),
-                      )),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          category.title,
-                          style: const TextStyle(
-                              fontSize: 16,
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w600),
+                        Container(
+                            decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            // Gradiente começa do topo
+                            end: Alignment.bottomCenter,
+                            // E vai até o final da imagem
+                            colors: [
+                              const Color(0xFF00008B).withOpacity(0.9),
+                              // Azul escuro com preto
+                              const Color(0xFF000000).withOpacity(0.6),
+                              // Preto mais claro
+                              const Color(0xFFFFFFFF).withOpacity(0.1),
+                              // Vai clareando
+                            ],
+                            stops: const [0.0, 0.5, 1.0], // Pontos de transição do gradiente
+                          ),
+                        )),
+                        Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            category.title,
+                            style: const TextStyle(
+                                fontSize: 16,
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w600),
+                          ),
                         ),
-                      ),
-                    ]),
+                      ]),
+                    ),
                   );
                 }),
           )
