@@ -1,4 +1,6 @@
 
+import 'package:bookstore_thais/model/vo/home_item_vo.dart';
+
 class HomeBook {
   final String? image;
   final String? title;
@@ -17,6 +19,16 @@ class HomeBook {
     this.releaseDate,
     this.sellingTOP
   });
+
+  HomeBookVO? toHomeBookVO() {
+    return HomeBookVO(
+        title: title,
+        image: image,
+        category: type,
+        author: author,
+        value: value
+    );
+  }
 }
 
 enum SellingTOP {

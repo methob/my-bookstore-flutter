@@ -1,28 +1,21 @@
 
-import 'package:auto_route/auto_route.dart';
-import 'package:bookstore_thais/navigation/router.config.gr.dart';
 import 'package:bookstore_thais/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../model/home_book_item.dart';
-import 'package:bookstore_thais/navigation/router.config.gr.dart';
 
 class HomeItemBook extends StatelessWidget {
 
   final HomeBook? item;
 
-  const HomeItemBook({super.key, this.item});
+  final Function(HomeBook?) itemClick;
+
+  const HomeItemBook({super.key, this.item, required this.itemClick});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        print("Navegando detalhe");
-        // context.read<HomeBottomSelectorBloc>().add(HomeBottomSelectorEvent(homeScreen: HomeScreenEnum.detail));
-        // AutoTabsRouter.of(context).navigate(DetailRoute());
-        // AutoRouter.of(context).push(DetailBookRoute());
-        context.router.push(DetailBookRoute());
-      },
+      onTap: () => itemClick(item),
       child: Container(
         margin: const EdgeInsets.only(right: 16),
         child: SizedBox(

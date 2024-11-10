@@ -3,21 +3,17 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bookstore_thais/model/banner_home.dart';
 import 'package:bookstore_thais/theme/colors.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../navigation/router.config.gr.dart';
-
 class ItemBanner extends StatelessWidget {
 
   final BannerHomeDTO bannerDTO;
+  final Function(BannerHomeDTO?) itemClick;
 
-  const ItemBanner({ super.key, required this.bannerDTO });
+  const ItemBanner({ super.key, required this.bannerDTO, required this.itemClick});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        AutoRouter.of(context).push(DetailBookRoute());
-      },
+      onTap: () => itemClick(bannerDTO),
       child: Container(
         padding: const EdgeInsets.only(right: 16),
         child: ClipRRect(

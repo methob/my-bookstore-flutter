@@ -1,5 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bookstore_thais/navigation/router.config.gr.dart';
+import 'package:flutter/cupertino.dart';
+
+@RoutePage()
+class HomeScreenNavigation extends StatelessWidget {
+  const HomeScreenNavigation({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return const AutoRouter();
+  }
+}
 
 @AutoRouterConfig()
 class BookStoreRouter extends $BookStoreRouter {
@@ -11,7 +21,8 @@ class BookStoreRouter extends $BookStoreRouter {
         AutoRoute(
           page: HomeRoute.page,
           children: [
-            AutoRoute(page: HomeContentRouter.page, children: [
+            AutoRoute(page: HomeRouteNavigation.page, children: [
+              AutoRoute(page: HomeContentRouter.page),
               AutoRoute(page: DetailBookRoute.page),
             ]),
             AutoRoute(page: CategoriesRoute.page),

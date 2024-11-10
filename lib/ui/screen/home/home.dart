@@ -1,15 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:bookstore_thais/bloc/home/home_bottom_selector_bloc.dart';
 import 'package:bookstore_thais/navigation/router.config.gr.dart';
-import 'package:bookstore_thais/ui/screen/categories/detail.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/icon_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-
-import '../categories/categories.dart';
-import 'home_content.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {

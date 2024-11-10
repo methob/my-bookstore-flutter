@@ -6,7 +6,7 @@ class HomeHeaderItemVO extends HomeItemVO {
 
   HomeHeaderItemVO({this.title});
 }
-class HomeBookItemVO extends HomeItemVO {
+class HomeBookVO extends HomeItemVO {
 
   final String? image;
   final String? category;
@@ -14,6 +14,6 @@ class HomeBookItemVO extends HomeItemVO {
   final String? author;
   final String? value;
 
-  HomeBookItemVO({this.image, this.title, this.category, this.author, this.value});
+  HomeBookVO({this.image, this.title, this.category, this.author, this.value});
 }
 

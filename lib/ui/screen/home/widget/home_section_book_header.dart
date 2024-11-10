@@ -44,7 +44,7 @@ class HomeSectionBookHeader extends StatelessWidget {
                     alignment: Alignment.bottomRight,
                     child: GestureDetector(
                       onTap: () {
-                        context.router.push(const DetailBookRoute());
+                        // context.router.push(const DetailBookRoute());
                       },
                       child: const Text(
                         "see more",

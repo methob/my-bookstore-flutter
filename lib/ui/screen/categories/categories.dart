@@ -92,7 +92,7 @@ class CategoriesScreen extends StatelessWidget {
                   final category = categories[index];
                   return InkWell(
                     onTap: () => {
-                      context.router.push(const DetailBookRoute())
+                      // context.router.push(const DetailBookRoute())
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5.0),

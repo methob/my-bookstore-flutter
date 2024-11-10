@@ -1,4 +1,6 @@
 
+import 'package:bookstore_thais/model/vo/home_item_vo.dart';
+
 class BannerHomeDTO {
   final String? image;
   final String? title;
@@ -15,4 +17,14 @@ class BannerHomeDTO {
     this.value,
     this.discount,
   });
+
+  HomeBookVO? toHomeBookVO() {
+    return HomeBookVO(
+      title: title,
+      image: image,
+      category: type,
+      author: author,
+      value: value
+    );
+  }
 }
