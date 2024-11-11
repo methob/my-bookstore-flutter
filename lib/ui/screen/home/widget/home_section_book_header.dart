@@ -70,19 +70,25 @@ class HomeSectionBookHeader extends StatelessWidget {
                 HomeFilterButton(
                   title: "This Week",
                   isSelected: selectedItem == HomeBookState.week,
-                  event: HomeBookEvent.filterByWeek
+                  onClick: () => {
+                    context.read<HomeTopBookFilterBloc>().add(HomeBookEvent.filterByWeek)
+                  },
                 ),
                 const SizedBox(width: 16),
                 HomeFilterButton(
                   title: "This Month",
                   isSelected: selectedItem == HomeBookState.month,
-                  event: HomeBookEvent.filterByMonth
+                  onClick: () => {
+                    context.read<HomeTopBookFilterBloc>().add(HomeBookEvent.filterByMonth)
+                  },
                 ),
                 const SizedBox(width: 16),
                 HomeFilterButton(
                   title: "This Year",
                   isSelected: selectedItem == HomeBookState.year,
-                  event: HomeBookEvent.filterByYear
+                  onClick: () => {
+                    context.read<HomeTopBookFilterBloc>().add(HomeBookEvent.filterByYear)
+                  },
                 ),
               ],
             ),
@@ -97,16 +103,14 @@ class HomeFilterButton extends StatelessWidget {
 
   final bool isSelected;
   final String title;
-  final HomeBookEvent event;
+  final Function onClick;
 
-  const HomeFilterButton({super.key, required this.isSelected, required this.title, required this.event});
+  const HomeFilterButton({super.key, required this.isSelected, required this.title, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () => {
-            context.read<HomeTopBookFilterBloc>().add(event)
-        },
+        onPressed: () => onClick(),
         style: ElevatedButton.styleFrom(
             backgroundColor: isSelected ? AppColors.fullBlack : Colors.transparent.withOpacity(0),
             shadowColor: Colors.transparent.withOpacity(0),

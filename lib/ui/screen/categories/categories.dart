@@ -1,4 +1,3 @@
-
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../model/category.dart';
 import '../../../navigation/router.config.gr.dart';
 import '../../../theme/colors.dart';
+import 'filter_book_dialog_widget.dart';
 
 @RoutePage()
 class CategoriesScreen extends StatelessWidget {
@@ -24,11 +24,25 @@ class CategoriesScreen extends StatelessWidget {
     });
   }
 
+  void showFilterDialog(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.white,
+        shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20))),
+        builder: (BuildContext context) {
+          return const FilterBottomSheet();
+        },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Category> categories = getCategories();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20,),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -64,7 +78,9 @@ class CategoriesScreen extends StatelessWidget {
                       color: AppColors.textFieldColors,
                       borderRadius: BorderRadius.circular(5.0)),
                   child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showFilterDialog(context);
+                      },
                       icon: const Icon(Icons.filter_alt_rounded)),
                 )
               ],
@@ -116,7 +132,11 @@ class CategoriesScreen extends StatelessWidget {
                               const Color(0xFFFFFFFF).withOpacity(0.1),
                               // Vai clareando
                             ],
-                            stops: const [0.0, 0.5, 1.0], // Pontos de transição do gradiente
+                            stops: const [
+                              0.0,
+                              0.5,
+                              1.0
+                            ], // Pontos de transição do gradiente
                           ),
                         )),
                         Container(
