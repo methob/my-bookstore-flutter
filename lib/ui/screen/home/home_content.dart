@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/home_item_book.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/home_section_book_header.dart';

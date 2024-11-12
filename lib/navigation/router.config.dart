@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bookstore_thais/navigation/router.config.gr.dart';
+import 'package:bookstore_thais/ui/screen/cart/CartScreen.dart';
 import 'package:flutter/cupertino.dart';
 
 @RoutePage()
@@ -25,6 +26,7 @@ class BookStoreRouter extends $BookStoreRouter {
               AutoRoute(page: HomeContentRouter.page),
               AutoRoute(page: DetailBookRoute.page),
             ]),
+            AutoRoute(page: CartRoute.page),
             AutoRoute(page: CategoriesRoute.page),
           ],
         ),

@@ -11,12 +11,12 @@ class FilterBottomSheet extends StatefulWidget {
 }
 
 class _FilterBottomSheet extends State<FilterBottomSheet> {
-  int currentButtonSelected = 1;
+  int _currentButtonSelected = 1;
   double _sliderValue = 0;
 
   void toggleButtonState(int positionSelected) {
     setState(() {
-      currentButtonSelected = positionSelected;
+      _currentButtonSelected = positionSelected;
     });
   }
 
@@ -29,10 +29,18 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
           title: const Center(child: Text("Filter")),
-          actions: const [
-            Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Text("Reset"),
+          actions: [
+            InkWell(
+              onTap: () {
+                setState(() {
+                  _currentButtonSelected = 1;
+                  _sliderValue = 0;
+                });
+              },
+              child: const Padding(
+                padding: EdgeInsets.only(right: 20),
+                child: Text("Reset"),
+              ),
             )
           ],
         ),
@@ -51,25 +59,25 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
               Row(
                 children: [
                   HomeFilterButton(
-                    isSelected: currentButtonSelected == 1,
+                    isSelected: _currentButtonSelected == 1,
                     title: "Paper Back",
                     onClick: () => {toggleButtonState(1)},
                   ),
                   const SizedBox(width: 9),
                   HomeFilterButton(
-                    isSelected: currentButtonSelected == 2,
+                    isSelected: _currentButtonSelected == 2,
                     title: "Hardcover",
                     onClick: () => {toggleButtonState(2)},
                   ),
                 ],
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               Row(
                 children: [
-                  const Text("Price Range", style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600
-                  ),),
+                  const Text(
+                    "Price Range",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
                   const Spacer(),
                   Text("0-${_sliderValue.round()}\$")
                 ],
@@ -79,19 +87,18 @@ class _FilterBottomSheet extends State<FilterBottomSheet> {
                   data: SliderTheme.of(context).copyWith(
                     overlayShape: SliderComponentShape.noOverlay,
                     overlayColor: AppColors.btnColors,
-                    thumbColor: AppColors.btnColors, // Cor do thumb (círculo)
-                    activeTrackColor: AppColors.btnColors, // Cor da faixa ativa
+                    thumbColor: AppColors.btnColors,
+                    activeTrackColor: AppColors.btnColors,
                   ),
                   child: Slider(
                       value: _sliderValue,
                       max: 100,
                       min: 0,
                       onChanged: (newValue) => {
-                        setState(() {
-                          _sliderValue =  (newValue / 5).round() * 5;;
-                        })
-                      })
-              )
+                            setState(() {
+                              _sliderValue = (newValue / 5).round() * 5;
+                            })
+                      }))
             ],
           ),
         ),

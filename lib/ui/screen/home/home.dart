@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:bookstore_thais/navigation/router.config.gr.dart';
 import 'package:bookstore_thais/ui/screen/home/widget/icon_navigation_bar.dart';
@@ -14,7 +13,7 @@ class HomeScreen extends StatelessWidget {
         routes: [
           HomeContentRouter(),
           CategoriesRoute(),
-          CategoriesRoute(),
+          CartRoute(),
           CategoriesRoute()
         ],
         builder: (context, child) {
