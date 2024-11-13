@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bookstore_thais/session/ClientSessionManager.dart';
 import 'package:bookstore_thais/ui/screen/login/login_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
@@ -48,6 +49,7 @@ extension InjectedGetItExtension on GetIt {
     final dioModule = RegisterModule();
     injectedHelper.singleton<Dio>(() => dioModule.dio);
     injectedHelper.singleton<LoginController>(() => LoginController());
+    injectedHelper.singleton<ClientSessionManager>(() => ClientSessionManager());
     return this;
   }
 }

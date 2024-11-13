@@ -1,11 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bookstore_thais/model/vo/home_item_vo.dart';
+import 'package:bookstore_thais/session/ClientSessionManager.dart';
 import 'package:flutter/material.dart';
 
+import '../../../di/di.config.dart';
 import '../../../theme/colors.dart';
 
 @RoutePage(name: "DetailBookRoute")
 class DetailScreen extends StatelessWidget {
+
+  var sessionManager = getIt.get<ClientSessionManager>();
+
   HomeBookVO? book;
 
   DetailScreen({super.key, required this.book});
@@ -128,6 +133,7 @@ class DetailScreen extends StatelessWidget {
                           const SizedBox(height: 16),
                           ElevatedButton(
                             onPressed: () {
+                              sessionManager.localCart.add(book);
                               AutoTabsRouter.of(context).setActiveIndex(2);
                             },
                             style: ElevatedButton.styleFrom(

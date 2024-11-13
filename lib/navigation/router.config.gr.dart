@@ -27,9 +27,11 @@ abstract class $BookStoreRouter extends _i10.RootStackRouter {
   @override
   final Map<String, _i10.PageFactory> pagesMap = {
     CartRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<CartRouteArgs>(orElse: () => const CartRouteArgs());
       return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i1.CartScreen(),
+        child: _i1.CartScreen(key: args.key),
       );
     },
     CategoriesRoute.name: (routeData) {
@@ -97,16 +99,31 @@ abstract class $BookStoreRouter extends _i10.RootStackRouter {
 
 /// generated route for
 /// [_i1.CartScreen]
-class CartRoute extends _i10.PageRouteInfo<void> {
-  const CartRoute({List<_i10.PageRouteInfo>? children})
-      : super(
+class CartRoute extends _i10.PageRouteInfo<CartRouteArgs> {
+  CartRoute({
+    _i11.Key? key,
+    List<_i10.PageRouteInfo>? children,
+  }) : super(
           CartRoute.name,
+          args: CartRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'CartRoute';
 
-  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+  static const _i10.PageInfo<CartRouteArgs> page =
+      _i10.PageInfo<CartRouteArgs>(name);
+}
+
+class CartRouteArgs {
+  const CartRouteArgs({this.key});
+
+  final _i11.Key? key;
+
+  @override
+  String toString() {
+    return 'CartRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

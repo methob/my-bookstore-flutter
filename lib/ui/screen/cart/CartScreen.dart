@@ -1,10 +1,41 @@
+import 'package:bookstore_thais/model/vo/home_item_vo.dart';
 import 'package:bookstore_thais/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
+import '../../../di/di.config.dart';
+import '../../../session/ClientSessionManager.dart';
+
 @RoutePage()
 class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
+
+  var sessionManager = getIt.get<ClientSessionManager>();
+
+  CartScreen({super.key});
+
+  Widget listText(String leftText, String rightText) {
+    return Row(
+      children: [
+        Text(leftText),
+        const Spacer(),
+        Text(rightText)
+      ],
+    );
+  }
+
+  Widget setupListItem(HomeBookVO? book) {
+    final ValueNotifier<int> currentQuantity = ValueNotifier<int>(1);
+    return ValueListenableBuilder<int>(
+      valueListenable: currentQuantity,
+      builder: (context, currentQuantity, child) {
+        return Row(
+          children: [
+
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,46 +47,29 @@ class CartScreen extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            SizedBox(height: 19),
+            const SizedBox(height: 19),
             Expanded(
               child: ListView.builder(
-                  itemCount: 3,
+                  itemCount: sessionManager.localCart.length,
                   itemBuilder: (context, index) {
-
+                     final item = sessionManager.localCart.elementAt(index);
+                     return setupListItem(item);
                   }
               ),
             ),
-            SizedBox(height: 33),
+            const SizedBox(height: 33),
             Text("Order Summary"),
-            SizedBox(height: 18),
-            Row(
-              children: [
-                Text("Subtotal"),
-                Spacer(),
-                Text("Value1")
-              ],
-            ),
-            SizedBox(height: 9),
-            Row(
-              children: [
-                Text("Shipping"),
-                Spacer(),
-                Text("Value2")
-              ],
-            ),
-            SizedBox(height: 14),
-            Divider(
+            const SizedBox(height: 18),
+            listText("Subtotal", "value1"),
+            const SizedBox(height: 9),
+            listText("Shipping", "value2"),
+            const SizedBox(height: 14),
+            const Divider(
               color: AppColors.simpleBlack,
               thickness: 1,
             ),
-            SizedBox(height: 11),
-            Row(
-              children: [
-                Text("Total"),
-                Spacer(),
-                Text("Value3")
-              ],
-            ),
+            const SizedBox(height: 11),
+            listText("Total", "Value3")
           ],
         ),
       ),
