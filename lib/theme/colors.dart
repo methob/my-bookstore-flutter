@@ -9,4 +9,6 @@ abstract class AppColors {
   static const Color textFieldColors2 = Color(0xFFD9D9D9);
   static const Color simpleBlack = Color(0xFF252525);
   static const Color defaultBlack = Color(0xFF000000);
+  static const Color grey = Color(0xFFFFFFFF);
+  static const Color weakGrey = Color(0xFFB8B8B8);
 }

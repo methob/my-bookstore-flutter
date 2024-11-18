@@ -12,6 +12,15 @@ class HomeScreenNavigation extends StatelessWidget {
   }
 }
 
+@RoutePage()
+class CartScreenNavigation extends StatelessWidget {
+  const CartScreenNavigation({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return const AutoRouter();
+  }
+}
+
 @AutoRouterConfig()
 class BookStoreRouter extends $BookStoreRouter {
   @override
@@ -26,7 +35,11 @@ class BookStoreRouter extends $BookStoreRouter {
               AutoRoute(page: HomeContentRouter.page),
               AutoRoute(page: DetailBookRoute.page),
             ]),
-            AutoRoute(page: CartRoute.page),
+            AutoRoute(page: CartRouteNavigation.page, maintainState: false, children: [
+              AutoRoute(page: CartRoute.page, initial: true),
+              AutoRoute(page: Checkoutscreen.page)
+            ]),
+            AutoRoute(page: Accountscreen.page),
             AutoRoute(page: CategoriesRoute.page),
           ],
         ),
