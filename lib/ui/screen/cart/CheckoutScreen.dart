@@ -7,6 +7,7 @@ class Checkoutscreen extends StatelessWidget {
   Checkoutscreen({super.key});
 
   final ValueNotifier<bool> _isExpanded = ValueNotifier<bool>(false);
+  final ValueNotifier<String?> _isChecked = ValueNotifier<String?>("false");
 
   @override
   Widget build(BuildContext context) {
@@ -81,28 +82,60 @@ class Checkoutscreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: AppColors.simpleBlack)),
             const SizedBox(height: 19),
-            ValueListenableBuilder<bool>(
-                valueListenable: _isExpanded,
-                builder: (context, isExpandedParam, child) {
+            ValueListenableBuilder<String?>(
+                valueListenable: _isChecked,
+                builder: (context, isChecked, child) {
                   return Column(
                     children: [
-                      ListTile(
-                        title: const Text("Clique para expandir"),
-                        trailing: const Icon(Icons.keyboard_arrow_down),
-                        onTap: () {
-                          _isExpanded.value = !isExpandedParam;
-                        },
-                      ),
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        height: isExpandedParam ? 100.0 : 0.0,
-                        curve: Curves.easeInOut,
-                        child: Container(
-                          color: Colors.grey[200],
-                          padding: const EdgeInsets.all(16.0),
-                          child: const Text("Este é o conteúdo expandido."),
+                      ValueListenableBuilder<bool>(
+                      valueListenable: _isExpanded,
+                      builder: (context, isExpandedParam, child) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                              onTap: () => {
+                                _isExpanded.value = !isExpandedParam
+                              },
+                              child: Row(children: [
+                                Radio<String>(
+                                  value: "Credit Card",
+                                  groupValue: isChecked,
+                                  onChanged: (value) {
+                                    _isChecked.value = value;
+                                  },
+                                ),
+                                SizedBox(width: 6),
+                                Text("Credit Card"),
+                                Spacer(),
+                                const Icon(Icons.keyboard_arrow_down)
+                              ]),
+                            ),
+                            AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              height: isExpandedParam ? 100.0 : 0.0,
+                              curve: Curves.easeInOut,
+                              child: Container(
+                                color: Colors.grey[200],
+                                margin: const EdgeInsets.only(top: 16.0),
+                                child: const Text("Este é o conteúdo expandido."),
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
+                      const SizedBox(height: 8 ),
+                      Row(children: [
+                        Radio<String>(
+                          value: "Cash on Delivery",
+                          groupValue: isChecked,
+                          onChanged: (value) {
+                              _isChecked.value = value;
+                          },
                         ),
-                      )
+                        SizedBox(width: 6),
+                        Text("Cash on Delivery"),
+                      ]),
                     ],
                   );
                 }),
