@@ -28,6 +28,8 @@ class BookStoreRouter extends $BookStoreRouter {
         AutoRoute(page: WelcomeRoute.page, initial: true),
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: SignUpRoute.page),
+        AutoRoute(page: SucessPaymentRoute.page),
+
         AutoRoute(
           page: HomeRoute.page,
           children: [

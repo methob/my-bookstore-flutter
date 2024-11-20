@@ -1,6 +1,9 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:bookstore_thais/theme/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../../navigation/router.config.gr.dart';
 
 @RoutePage()
 class Checkoutscreen extends StatelessWidget {
@@ -98,16 +101,23 @@ class Checkoutscreen extends StatelessWidget {
                                 _isExpanded.value = !isExpandedParam
                               },
                               child: Row(children: [
-                                Radio<String>(
-                                  value: "Credit Card",
-                                  groupValue: isChecked,
-                                  onChanged: (value) {
-                                    _isChecked.value = value;
-                                  },
+                              Radio<String>(
+                                value: "Credit Card",
+                                visualDensity: const VisualDensity(
+                                  horizontal: VisualDensity.minimumDensity,
+                                  vertical: VisualDensity.minimumDensity,
                                 ),
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                groupValue: isChecked,
+                                onChanged: (value) {
+                                  _isChecked.value = value;
+                                },
+                              ),
                                 SizedBox(width: 6),
-                                Text("Credit Card"),
-                                Spacer(),
+                                Text("Credit Card", style: TextStyle(
+                                    fontWeight: isChecked == "Credit Card" ? FontWeight.w600 : null
+                                )),
+                                const Spacer(),
                                 const Icon(Icons.keyboard_arrow_down)
                               ]),
                             ),
@@ -124,21 +134,43 @@ class Checkoutscreen extends StatelessWidget {
                           ],
                         );
                       }),
-                      const SizedBox(height: 8 ),
+                      const SizedBox(height: 31),
                       Row(children: [
                         Radio<String>(
                           value: "Cash on Delivery",
+                          visualDensity: const VisualDensity(
+                            horizontal: VisualDensity.minimumDensity,
+                            vertical: VisualDensity.minimumDensity,
+                          ),
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           groupValue: isChecked,
                           onChanged: (value) {
                               _isChecked.value = value;
                           },
                         ),
-                        SizedBox(width: 6),
-                        Text("Cash on Delivery"),
+                        const SizedBox(width: 6),
+                        Text("Cash on Delivery", style: TextStyle(
+                          fontWeight: isChecked == "Cash on Delivery" ? FontWeight.w600 : null
+                        )),
                       ]),
                     ],
                   );
                 }),
+            const Spacer(),
+            ElevatedButton(
+              onPressed: () {
+                AutoRouter.of(context).push(const SucessPaymentRoute());
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.btnColors,
+                  minimumSize: const Size(double.infinity, 40),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0))),
+              child: const Text(
+                "pay \$60.00",
+                style: TextStyle(color: AppColors.primary),
+              ),
+            ),
           ],
         ),
       ),
